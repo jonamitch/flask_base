@@ -1,10 +1,10 @@
 from flask import render_template
-from flask_app import app
+from flask_app.main import bp
 from flask_login import login_required
 
 
-@app.route('/')
-@app.route('/index')
+@bp.route('/')
+@bp.route('/index')
 @login_required
 def index():
     posts = [
@@ -18,4 +18,4 @@ def index():
         }
     ]
 
-    return render_template('index.html', title='Home', posts=posts)
+    return render_template('main/index.html', title='Home', posts=posts)
