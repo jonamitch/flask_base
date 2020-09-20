@@ -1,7 +1,8 @@
+from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user
 from werkzeug.urls import url_parse
-from flask_app import app
+from flask_app import app, db
 from flask_app.forms import LoginForm
 from flask_app.models import User
 
@@ -28,3 +29,10 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.utcnow()
+        db.session.commit()
