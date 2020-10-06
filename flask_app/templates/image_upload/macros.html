@@ -1,0 +1,31 @@
+{% macro create_image_list(images, delete_form=none) -%}
+    <table class="table table-hover">
+        {% for image in images %}
+        <tr>
+            <td>
+                <img src="{{ url_for('image_upload.get_photo', display_filename=image) }}" style="width: 64px">
+            </td>
+            <td>
+                <a href="{{ url_for('image_upload.download_photo', display_filename=image) }}"> {{ image }} </a>
+                {% if delete_form %}
+                <form action="{{ url_for('image_upload.delete_photo', display_filename=image) }}" method="post">
+                    {{ delete_form.hidden_tag() }}
+                    {{ delete_form.submit(value='Delete') }}
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{%- endmacro %}
+
+{% macro upload_photo(sub_route=none) -%}
+    {% set upload_endpoint = "/upload-photo" if sub_route is none else "/upload-photo/" ~ sub_route %}
+    <form method="POST" action={{upload_endpoint}} enctype=multipart/form-data>
+        <input type=file name=file accept="image/*" multiple>
+        <input type=submit value=Upload>
+        {% for key in kwargs %}
+        <input  type="hidden" name={{key}} value={{kwargs[key]}} >
+        {% endfor %}
+    </form>
+{%- endmacro %}

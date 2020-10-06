@@ -36,6 +36,9 @@ def create_app(config_class=Config):
     from flask_app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
+    from flask_app.image_upload import bp as image_upload_bp
+    app.register_blueprint(image_upload_bp)
+
     if not app.debug:
         if app.config['MAIL_SERVER']:
             auth = None

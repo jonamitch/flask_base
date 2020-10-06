@@ -16,3 +16,8 @@ class Config(object):
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME') or secrets['MAIL_USERNAME']
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') or secrets['MAIL_PASSWORD']
     ADMINS = ['joy.food.earth@gmail.com']
+
+    MAX_CONTENT_LENGTH = 1024*1024
+    UPLOAD_EXTENSIONS = ['.jpg', '.png', '.gif', '.bmp']
+    STATIC_UPLOAD_FOLDER = "images"
+

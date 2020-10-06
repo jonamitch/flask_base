@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% from 'image_upload/macros.html' import create_image_list, upload_photo %}
+
+{% block app_content %}
+<div class="content">
+    <h3>Server storage</h3>
+    <div>
+        <h3>Upload your file here:</h3>
+        {{ upload_photo() }}
+    </div>
+    <div>
+        <h3>These are your uploaded files:</h3>
+        <p>Click on the filename to download it.</p>
+        {{ create_image_list(contents, delete_form=form) }}
+    </div>
+</div>
+{% endblock %}
